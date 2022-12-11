@@ -1,0 +1,145 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: rgb(39, 39, 39);
+  color: white;
+}
+
+h1 {
+  text-align: center;
+  font-size: 50px !important;
+  font-weight: 900 !important;
+  margin-block: 30px !important;
+}
+
+a:-webkit-any-link {
+  color: red !important;
+}
+
+/*login*/ ////////////////////////////////////////////
+.example-container {
+  margin-left: 8px;
+  input {
+    color: white;
+  }
+  mat-label {
+    color: white !important;
+  }
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  mat-form-field {
+    width: 35%;
+  }
+  /*Signin*/ //////////////////////////
+  .nc {
+    width: 35%;
+    display: flex;
+    justify-content: space-between;
+
+    mat-form-field {
+      width: 47.5%;
+    }
+  }
+  ///////////////////////////////////
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+////////////////////////////////////////////////////////////
+
+///card/////////////////////////////////////////////////////
+
+app-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  h1{
+    flex: 1 1 100%;
+  }
+}
+
+.card {
+  padding: 30px;
+}
+
+.example-card {
+  width: 200px;
+  height: 270px;
+
+  .mat-card-avatar {
+    height: 0;
+    width: 0;
+  }
+
+  // .mat-card {
+  // color: rgb(255 255 255 / 87%);
+  // background: #3b3b3b;
+  // box-shadow: -5px 12px 45px -3px black !important;
+  // }
+
+  .mat-card-image {
+    margin: 0 -16px -10px -16px;
+  }
+
+  .mat-card-actions {
+    display: flex;
+    padding: 8px 0;
+    justify-content: space-between;
+  }
+  .mat-button {
+    border-radius: 100px;
+    min-width: 35px;
+    padding: 0px;
+  }
+}
+///card/////////////////////////////////////////////////////
+
+///menu/////////////////////////////////////////////////////
+.mat-drawer {
+  text-align: center;
+  width: 20%;
+  color: white;
+  font-weight: 600;
+  font-size: x-large;
+}
+
+.menucontainer {
+  background-color: rgb(39, 39, 39);
+  color: white;
+}
+
+.mat-drawer {
+  background: #2c2c2c;
+  box-shadow: 11px -1px 20px 0px #141414;
+}
+.mat-drawer-container {
+  display: inherit !important;
+}
+
+.example-sidenav-content {
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+
+////////////////////////////////////////////////////////////
