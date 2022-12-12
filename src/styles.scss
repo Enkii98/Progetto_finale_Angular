@@ -73,6 +73,10 @@ app-card {
   h1 {
     flex: 1 1 100%;
   }
+  img{
+    width:200px;
+    height:420px;
+  }
 }
 
 .card {
@@ -80,8 +84,8 @@ app-card {
 }
 
 .example-card {
-  width: 200px;
-  height: 270px;
+  width: 310px;
+  height: 535px;
   background-color: #393939;
 
   mat-card-title {

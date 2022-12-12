@@ -28,7 +28,11 @@ const share = `
           <mat-card-title>{{ p.title }}</mat-card-title>
           <mat-card-subtitle>Rating:{{ p.vote_average }}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image [src]="p.poster_path" [alt]="p.title" />
+        <img
+          mat-card-image
+          src="http://image.tmdb.org/t/p/w500/{{p.poster_path}}"
+          [alt]="p.title"
+        />
         <mat-card-actions>
           <button mat-button>
             <mat-icon
@@ -66,7 +70,6 @@ export class CardComponent implements OnInit {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer
   ) {
-
     iconRegistry.addSvgIconLiteral(
       'share',
       sanitizer.bypassSecurityTrustHtml(share)
@@ -146,5 +149,4 @@ export class CardComponent implements OnInit {
       }
     });
   }
-
 }
