@@ -116,6 +116,8 @@ export class CardComponent implements OnInit {
     this.userdata = JSON.parse(userLogged);
   }
 
+  //il tasto like funziona, ma non capisco, perche con angular material per aggiornare il colore del cuore dei favoriti devo aggiornare la pagina
+
   like(movie: any, event: any) {
     this.sub = this.favSrv.getFavorites().subscribe((ris) => {
       this.favorites = ris;

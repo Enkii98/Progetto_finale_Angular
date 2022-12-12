@@ -8,7 +8,13 @@
       "id": 1
     }
   ],
-  "favorites": [],
+  "favorites": [
+    {
+      "movieId": 460465,
+      "userId": 1,
+      "id": 1
+    }
+  ],
   "genres": [
     {
       "id": 28,
