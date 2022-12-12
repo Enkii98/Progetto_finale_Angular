@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "full-stack": "concurrently \"npm run backend\" \"npm run start\"",
-    "backend": "json-server-auth --watch db.json --routes routes.json --port 4201 --delay 1000 "
+    "backend": "json-server-auth --watch db.json --routes routes.json --port 4201"
   },
   "private": true,
   "dependencies": {

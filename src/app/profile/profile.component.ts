@@ -10,22 +10,36 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
-  template: `<div *ngFor="let p of profile"><p>{{p.user.name}}</p></div>`,
+  template: `
+    <mat-card class="profile-card">
+      <mat-card-header>
+        <mat-card-title>Name: {{ user.user.name }}</mat-card-title>
+        <mat-card-subtitle>Surname: {{ user.user.surname }}</mat-card-subtitle>
+        <mat-card-subtitle>Email: {{ user.user.email }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-raised-button color="warn" routerLink="/card">Film</button>
+        <button mat-raised-button color="warn" (click)="logout()">
+          Log Out
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  `,
   styles: [],
 })
 export class ProfileComponent implements OnInit {
-  URL = 'http://localhost:4201';
-  profile: AuthData[] | undefined;
+  user: any = [];
 
-  constructor(private authSrv: UsersService, private http: HttpClient) {}
+  constructor(private authSrv: UsersService) {}
 
   ngOnInit(): void {
-    this.login();
+    let userLogger: any = localStorage.getItem('user');
+    this.user = JSON.parse(userLogger);
+    console.log(userLogger);
   }
 
-  login() {
-    this.http.get<AuthData[]>(`${this.URL}/users`).subscribe((res) => {
-      this.profile = res;
-    });
+  logout() {
+    confirm('Are you sure?');
+    this.authSrv.logout();
   }
 }

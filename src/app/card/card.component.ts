@@ -5,12 +5,10 @@ import { Film } from '../Interface/film';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { UsersService } from '../users.service';
+import { Favorites } from '../Interface/favorites';
+import { FavoritesService } from '../favourite-films.service';
+import { FilmsService } from '../films.service';
 
-const heart = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-</svg>
-`;
 
 const share = `
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
@@ -21,8 +19,8 @@ const share = `
 @Component({
   selector: 'app-card',
   template: `
-  <h1>Film</h1>
-  <br>
+    <h1>Film</h1>
+    <br />
     <div class="card" *ngFor="let p of card">
       <mat-card class="example-card">
         <mat-card-header>
@@ -30,26 +28,20 @@ const share = `
           <mat-card-title>{{ p.title }}</mat-card-title>
           <mat-card-subtitle>Rating:{{ p.vote_average }}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image [src]='p.poster_path'[alt]="p.title " />
+        <img mat-card-image [src]="p.poster_path" [alt]="p.title" />
         <mat-card-actions>
-          <!-- <button mat-button> -->
-            <!-- <mat-icon -->
-              <!-- svgIcon="heart" -->
-              <!-- aria-hidden="false" -->
-              <!-- aria-label="heart SVG icon" -->
-            <!-- ></mat-icon> -->
-          <!-- </button> -->
           <button mat-button>
-          <mat-icon
-          svgIcon="share"
-          aria-hidden="false"
-          aria-label="share SVG icon"
-          ></mat-icon>
+            <mat-icon
+              svgIcon="share"
+              aria-hidden="false"
+              aria-label="share SVG icon"
+            ></mat-icon>
           </button>
           <button
+            (click)="like(p.id, $event)"
+            color="{{ p.like ? 'warn' : 'basic' }}"
+            truecolor
             mat-icon-button
-            matTooltip="Warn"
-            color="warn"
             aria-label="Example icon-button with a heart icon"
           >
             <mat-icon>favorite</mat-icon>
@@ -63,17 +55,17 @@ const share = `
 export class CardComponent implements OnInit {
   sub!: Subscription;
   card: Film[] | undefined;
+  favorites: Favorites[] | undefined;
+  userdata: any = [];
 
   constructor(
+    private filmSrv: FilmsService,
+    private favSrv: FavoritesService,
     private userSrv: UsersService,
     private http: HttpClient,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer
   ) {
-    iconRegistry.addSvgIconLiteral(
-      'heart',
-      sanitizer.bypassSecurityTrustHtml(heart)
-    );
 
     iconRegistry.addSvgIconLiteral(
       'share',
@@ -82,24 +74,77 @@ export class CardComponent implements OnInit {
   }
 
   ngOnInit(): any {
-
-    this.get();
+    this.getfilms();
+    this.user();
+    this.myfav();
   }
 
-  // toggleswitch(){
-    // if(color="warn" && matTooltip="Warn" ){
-      // color="primary"
-      // matTooltip="Primary"
-    // }
-  // }
-
-  get() {
-    this.http
-      .get<Film[]>('http://localhost:4201/movies-popular')
-      .subscribe((res) => {
-        this.card = res;
-      });
+  getfilms() {
+    this.sub = this.filmSrv.film().subscribe((ris) => {
+      this.card = ris;
+    });
   }
 
+  myfav() {
+    this.filmSrv.film().subscribe((movies) => {
+      this.card = movies;
+      if (this.userdata.user.id !== null) {
+        this.favSrv.getFavorites().subscribe((fav) => {
+          this.card = this.card!.map((movie) => {
+            if (
+              fav.find(
+                (value) =>
+                  value.movieId === movie.id &&
+                  value.userId === this.userdata.user.id
+              )
+            ) {
+              movie.like = true;
+              movie.userId = this.userdata.user.id;
+            }
+            return movie;
+          });
+        });
+      }
+    });
+  }
+
+  user() {
+    let userLogged: any = localStorage.getItem('user');
+    this.userdata = JSON.parse(userLogged);
+  }
+
+  like(movie: any, event: any) {
+    this.sub = this.favSrv.getFavorites().subscribe((ris) => {
+      this.favorites = ris;
+
+      if (
+        ris.find(
+          (item) =>
+            item.movieId === movie && item.userId === this.userdata.user.id
+        )
+      ) {
+        const item = ris.find(
+          (item) =>
+            item.movieId === movie && item.userId === this.userdata.user.id
+        );
+        const id = item ? item.id : undefined;
+
+        this.sub = this.favSrv.deleteFavorites(id!).subscribe((ris) => {
+          console.log('Item has been deleted');
+        });
+      } else {
+        let newFavorite: {
+          movieId: number;
+          userId: number;
+        } = {
+          movieId: movie,
+          userId: this.userdata.user.id,
+        };
+        this.sub = this.favSrv.postFavorites(newFavorite).subscribe((ris) => {
+          console.log('Item has been added');
+        });
+      }
+    });
+  }
 
 }

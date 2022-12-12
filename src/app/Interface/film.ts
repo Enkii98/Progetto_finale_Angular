@@ -1,11 +1,9 @@
 export interface Film {
   id: number;
   title: string;
-  poster_path:string;
-  vote_average:number;
+  poster_path: string;
+  vote_average: number;
+  userId: number;
+  like: boolean;
 }
-//export interface Film {
-//    id: number;
-//    name: string;
-//}
 
