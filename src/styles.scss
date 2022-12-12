@@ -22,7 +22,6 @@ a:-webkit-any-link {
   color: red !important;
 }
 
-
 /*login*/ ////////////////////////////////////////////
 .example-container {
   margin-left: 8px;
@@ -71,7 +70,7 @@ app-card {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
-  h1{
+  h1 {
     flex: 1 1 100%;
   }
 }
@@ -85,10 +84,13 @@ app-card {
   height: 270px;
   background-color: #393939;
 
-  mat-card-title{
+  mat-card-title {
     color: white;
   }
 
+  mat-card-subtitle {
+    color: #ffe600;
+  }
 
   .mat-card-avatar {
     height: 0;
@@ -152,17 +154,25 @@ app-card {
 ////////////////////////////////////////////////////////////
 // profile//////////////////////////////////////////////////
 
-app-profile{
+app-profile {
   padding-top: 30px;
   display: flex;
   justify-content: center;
-
 }
-.profile-card{
+.profile-card {
   width: 200px !important;
   height: fit-content !important;
   background-color: #393939;
-  mat-card-subtitle{
+  display: flex !important;
+  flex-direction: column;
+  align-items: center
+  !important;
+
+  mat-card-title {
+    color: red;
+  }
+
+  mat-card-subtitle {
     color: white;
   }
 }
