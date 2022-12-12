@@ -43,8 +43,7 @@ const share = `
           </button>
           <button
             (click)="like(p.id, $event)"
-            color="{{ p.like ? 'warn' : 'basic' }}"
-            truecolor
+            ngClass="{{p.like? 'red':'black'}}"
             mat-icon-button
             aria-label="Example icon-button with a heart icon"
           >
@@ -116,7 +115,6 @@ export class CardComponent implements OnInit {
     this.userdata = JSON.parse(userLogged);
   }
 
-  //il tasto like funziona, ma non capisco, perche con angular material per aggiornare il colore del cuore dei favoriti devo aggiornare la pagina
 
   like(movie: any, event: any) {
     this.sub = this.favSrv.getFavorites().subscribe((ris) => {
@@ -128,6 +126,8 @@ export class CardComponent implements OnInit {
             item.movieId === movie && item.userId === this.userdata.user.id
         )
       ) {
+        event.target.classList.remove('red');
+        event.target.classList.add('black');
         const item = ris.find(
           (item) =>
             item.movieId === movie && item.userId === this.userdata.user.id
@@ -138,6 +138,8 @@ export class CardComponent implements OnInit {
           console.log('Item has been deleted');
         });
       } else {
+        event.target.classList.remove('black');
+        event.target.classList.add('red');
         let newFavorite: {
           movieId: number;
           userId: number;
