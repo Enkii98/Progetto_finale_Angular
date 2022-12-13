@@ -25,12 +25,12 @@ const share = `
       <mat-card class="example-card">
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>{{ p.title }}</mat-card-title>
+          <mat-card-title>{{ lenght(p.title, 15) }}</mat-card-title>
           <mat-card-subtitle>Rating:{{ p.vote_average }}</mat-card-subtitle>
         </mat-card-header>
         <img
           mat-card-image
-          src="http://image.tmdb.org/t/p/w500/{{p.poster_path}}"
+          src="http://image.tmdb.org/t/p/w500/{{ p.poster_path }}"
           [alt]="p.title"
         />
         <mat-card-actions>
@@ -43,7 +43,7 @@ const share = `
           </button>
           <button
             (click)="like(p.id, $event)"
-            ngClass="{{p.like? 'red':'black'}}"
+            ngClass="{{ p.like ? 'red' : 'black' }}"
             mat-icon-button
             aria-label="Example icon-button with a heart icon"
           >
@@ -115,7 +115,6 @@ export class CardComponent implements OnInit {
     this.userdata = JSON.parse(userLogged);
   }
 
-
   like(movie: any, event: any) {
     this.sub = this.favSrv.getFavorites().subscribe((ris) => {
       this.favorites = ris;
@@ -152,5 +151,9 @@ export class CardComponent implements OnInit {
         });
       }
     });
+  }
+
+  lenght(value: string, limit: number): string {
+    return value.length > limit ? value.substring(0, limit) + '...' : value;
   }
 }
