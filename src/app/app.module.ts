@@ -24,6 +24,7 @@ import { CardComponent } from './card/card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ProfileComponent } from './profile/profile.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 @NgModule({

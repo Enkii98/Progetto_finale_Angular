@@ -6,6 +6,7 @@ import { AuthData } from '../users.service';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { FavoritesService } from '../favourite-films.service';
 
 
 @Component({
@@ -30,13 +31,14 @@ import { HttpClient } from '@angular/common/http';
 export class ProfileComponent implements OnInit {
   user: any = [];
 
-  constructor(private authSrv: UsersService) {}
+  constructor(private authSrv: UsersService,private favSrv: FavoritesService) {}
 
   ngOnInit(): void {
     let userLogger: any = localStorage.getItem('user');
     this.user = JSON.parse(userLogger);
     console.log(userLogger);
   }
+
 
   logout() {
     confirm('Are you sure?');

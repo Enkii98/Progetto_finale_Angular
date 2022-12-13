@@ -5,6 +5,8 @@ import { map, take } from 'rxjs/operators';
 import { UsersService } from './users.service';
 import { AuthguardGuard } from './authguard.guard';
 import { AuthData } from './users.service';
+import { Observable } from 'rxjs';
+import { FavoritesService } from './favourite-films.service';
 
 const menu = `
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
@@ -18,19 +20,16 @@ const menu = `
     <mat-drawer-container class="menucontainer" autosize>
       <mat-drawer #drawer class="example-sidenav" mode="side">
         <p>Menu</p>
-        <br>
-        <br>
+        <br />
+        <br />
         <div>
-          <button
-            routerLink="/login"
-            mat-raised-button
-            color="warn"
-          >
+          <button routerLink="/login" mat-raised-button color="warn">
             Login
           </button>
           <br />
           <br />
           <button
+            *ngIf="shows()"
             routerLink="/profile"
             mat-raised-button
             color="warn"
@@ -40,7 +39,7 @@ const menu = `
           <br />
           <br />
           <button
-            *ngIf="show"
+            *ngIf="shows()"
             (click)="logout()"
             mat-raised-button
             color="warn"
@@ -73,12 +72,21 @@ export class AppComponent {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private authSrv: UsersService,
-    private guardSrv: AuthguardGuard
+    private guardSrv: AuthguardGuard,
+    private favSrv: FavoritesService
   ) {
     iconRegistry.addSvgIconLiteral(
       'menu',
       sanitizer.bypassSecurityTrustHtml(menu)
     );
+  }
+
+  shows() {
+    let userLogged: any = localStorage.getItem('user');
+    if (userLogged) {
+      return true;
+    }
+    return false;
   }
 
   logout() {

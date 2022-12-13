@@ -6,9 +6,22 @@
       "name": "Mattia",
       "surname": "Cannizzaro",
       "id": 1
+    },
+    {
+      "email": "i@a.com",
+      "password": "$2a$10$lUm437Imh97AJc6WWrmwe.bzFr9pa4nGFi3wvQtaTIhUERndsY4Ze",
+      "name": "alfa",
+      "surname": "beto",
+      "id": 2
     }
   ],
-  "favorites": [],
+  "favorites": [
+    {
+      "movieId": 791373,
+      "userId": 1,
+      "id": 1
+    }
+  ],
   "genres": [
     {
       "id": 28,
