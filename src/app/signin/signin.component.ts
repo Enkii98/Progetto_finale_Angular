@@ -137,7 +137,7 @@ export class SigninComponent implements OnInit {
       return 'You must enter a value';
     }
 
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+      return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
   //password

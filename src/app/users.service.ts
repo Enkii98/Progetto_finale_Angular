@@ -103,6 +103,12 @@ export class UsersService {
     }, expMs);
   }
 
+  delete(id: number) {
+    this.http.delete('http://localhost:4201/users/' + id).subscribe();
+    this.router.navigate(['/login']);
+    localStorage.removeItem('user');
+  }
+
   private errors(err: any) {
     // console.error(err)
     switch (err.error) {
