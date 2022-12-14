@@ -60,8 +60,9 @@ import { UsersService } from '../users.service';
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-          <mat-label>Enter your password</mat-label>
+          <mat-label>Enter your password (Min 8 characters)</mat-label>
           <input
+
             ngModel
             id="password"
             name="password"

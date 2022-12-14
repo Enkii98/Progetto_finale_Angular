@@ -110,7 +110,7 @@ export class UsersService {
   }
 
   private errors(err: any) {
-    // console.error(err)
+    console.error(err)
     switch (err.error) {
       case 'Email and password are required':
         return throwError('Email and password are required');
@@ -128,6 +128,7 @@ export class UsersService {
       case 'Unauthorized':
         return throwError('Unauthorized');
         break;
+
 
       default:
         return throwError('Call error');
